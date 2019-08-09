@@ -1,0 +1,29 @@
+spring:
+    datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: com.mysql.jdbc.Driver
+      #url: jdbc:mysql://10.13.117.32:3306/smurfs-base-config?autoReconnect=true&useSSL=false
+      #username: admin
+      #password: uLF7tlzZWNUBuFEp
+      url: jdbc:mysql://10.10.102.23:3306/smurfs-base-config?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+      username: root
+      password: top2017
+      druid:
+        initial-size: 10
+        max-active: 100
+        min-idle: 10
+        max-wait: 60000
+        pool-prepared-statements: true
+        max-pool-prepared-statement-per-connection-size: 20
+        time-between-eviction-runs-millis: 60000
+        min-evictable-idle-time-millis: 300000
+        validation-query: select 1
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+
+mybatis:
+    mapper-locations: classpath:mapping/*.xml
+    type-aliases-package: com.topideal.mybatis.entity
+
+

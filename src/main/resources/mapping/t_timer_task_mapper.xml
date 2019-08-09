@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+        'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+<mapper namespace='com.topideal.mybatis.mapper.TimerTaskMapper'>
+
+    <!-- 关系映射 -->
+    <resultMap id="TimerTaskModelMap" type="com.topideal.mybatis.entity.TimerTaskModel" >
+        <result property="platformId" column="platform_id" />
+        <result property="mqId" column="mq_id" />
+        <result property="nextTriggerDate" column="next_trigger_date" />
+        <result property="tags" column="tags" />
+        <result property="firstTriggerDate" column="first_trigger_date" />
+        <result property="periodType" column="period_type" />
+        <result property="creater" column="creater" />
+        <result property="topic" column="topic" />
+        <result property="taskName" column="task_name" />
+        <result property="id" column="id" />
+        <result property="platformName" column="platform_name" />
+        <result property="intervalTime" column="interval_time" />
+        <result property="createDate" column="create_date" />
+    </resultMap>
+
+    <!-- 查询所有信息 -->
+    <select id="list" resultMap='TimerTaskModelMap' parameterType='com.topideal.mybatis.entity.TimerTaskModel'>
+        select <include refid='sql_columns' /> from  t_timer_task  <include refid='sql_where' />
+    </select>
+
+    <!-- 条件查询 -->
+    <select id='get' resultMap='TimerTaskModelMap' parameterType='com.topideal.mybatis.entity.TimerTaskModel' >
+        select <include refid='sql_columns' /> from  t_timer_task  <include refid='sql_where' />
+    </select>
+
+    <!-- 新增数据 -->
+    <insert id='insert' parameterType='com.topideal.mybatis.entity.TimerTaskModel' keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO  t_timer_task
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test='platformId!=null' > platform_id , </if>
+            <if test='mqId!=null' > mq_id , </if>
+            <if test='nextTriggerDate!=null' > next_trigger_date , </if>
+            <if test='tags!=null and !"".equals(tags)' > tags , </if>
+            <if test='firstTriggerDate!=null' > first_trigger_date , </if>
+            <if test='periodType!=null and !"".equals(periodType)' > period_type , </if>
+            <if test='creater!=null' > creater , </if>
+            <if test='topic!=null and !"".equals(topic)' > topic , </if>
+            <if test='taskName!=null and !"".equals(taskName)' > task_name , </if>
+            <if test='id!=null' > id , </if>
+            <if test='platformName!=null and !"".equals(platformName)' > platform_name , </if>
+            <if test='intervalTime!=null' > interval_time , </if>
+            <if test='createDate!=null' > create_date , </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test='platformId!=null' > #{platformId} , </if>
+            <if test='mqId!=null' > #{mqId} , </if>
+            <if test='nextTriggerDate!=null' > #{nextTriggerDate} , </if>
+            <if test='tags!=null and !"".equals(tags)' > #{tags} , </if>
+            <if test='firstTriggerDate!=null' > #{firstTriggerDate} , </if>
+            <if test='periodType!=null and !"".equals(periodType)' > #{periodType} , </if>
+            <if test='creater!=null' > #{creater} , </if>
+            <if test='topic!=null and !"".equals(topic)' > #{topic} , </if>
+            <if test='taskName!=null and !"".equals(taskName)' > #{taskName} , </if>
+            <if test='id!=null' > #{id} , </if>
+            <if test='platformName!=null and !"".equals(platformName)' > #{platformName} , </if>
+            <if test='intervalTime!=null' > #{intervalTime} , </if>
+            <if test='createDate!=null' > #{createDate} , </if>
+        </trim>
+    </insert>
+
+    <!-- 修改数据 -->
+    <update id='update' parameterType='com.topideal.mybatis.entity.TimerTaskModel' keyProperty="id" useGeneratedKeys="true">
+        UPDATE   t_timer_task SET
+        <trim  suffixOverrides=",">
+            <if test='platformId!=null' > platform_id= #{platformId} , </if>
+            <if test='mqId!=null' > mq_id= #{mqId} , </if>
+            <if test='nextTriggerDate!=null' > next_trigger_date= #{nextTriggerDate} , </if>
+            <if test='tags!=null and !"".equals(tags)' >tags= #{tags} , </if>
+            <if test='firstTriggerDate!=null' > first_trigger_date= #{firstTriggerDate} , </if>
+            <if test='periodType!=null and !"".equals(periodType)' >period_type= #{periodType} , </if>
+            <if test='creater!=null' > creater= #{creater} , </if>
+            <if test='topic!=null and !"".equals(topic)' >topic= #{topic} , </if>
+            <if test='taskName!=null and !"".equals(taskName)' >task_name= #{taskName} , </if>
+            <if test='id!=null' > id= #{id} , </if>
+            <if test='platformName!=null and !"".equals(platformName)' >platform_name= #{platformName} , </if>
+            <if test='intervalTime!=null' > interval_time= #{intervalTime} , </if>
+            <if test='createDate!=null' > create_date= #{createDate} , </if>
+        </trim>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
+    <!-- 删除数据 -->
+    <delete id='del' parameterType='java.lang.Long'>
+        delete from  t_timer_task  where id=#{id}
+    </delete>
+
+    <!-- 批量删除数据 -->
+    <delete id='batchDel' parameterType='java.util.ArrayList'>
+        delete from  t_timer_task where id in
+        <foreach collection='list' item='id' separator=',' open='(' close=')'>
+        #{id}
+        </foreach>
+    </delete>
+
+    <!-- 表字段 -->
+    <sql id='sql_columns'>
+        platform_id,
+        mq_id,
+        next_trigger_date,
+        tags,
+        first_trigger_date,
+        period_type,
+        creater,
+        topic,
+        task_name,
+        id,
+        platform_name,
+        interval_time,
+        create_date
+    </sql>
+
+    <!-- 查询条件 -->
+    <sql id='sql_where'>
+        <where>
+            <trim suffixOverrides='and'>
+                <if test='platformId!=null' > platform_id= #{platformId} and </if>
+                <if test='mqId!=null' > mq_id= #{mqId} and </if>
+                <if test='nextTriggerDate!=null' > next_trigger_date= #{nextTriggerDate} and </if>
+                <if test='tags!=null and !"".equals(tags)' >tags= #{tags} and </if>
+                <if test='firstTriggerDate!=null' > first_trigger_date= #{firstTriggerDate} and </if>
+                <if test='periodType!=null and !"".equals(periodType)' >period_type= #{periodType} and </if>
+                <if test='creater!=null' > creater= #{creater} and </if>
+                <if test='topic!=null and !"".equals(topic)' >topic= #{topic} and </if>
+                <if test='taskName!=null and !"".equals(taskName)' >task_name= #{taskName} and </if>
+                <if test='id!=null' > id= #{id} and </if>
+                <if test='platformName!=null and !"".equals(platformName)' >platform_name= #{platformName} and </if>
+                <if test='intervalTime!=null' > interval_time= #{intervalTime} and </if>
+                <if test='createDate!=null' > create_date= #{createDate} and </if>
+            </trim>
+        </where>
+    </sql>
+
+    <!--自定义SQL-->
+
+    <resultMap id="TimerTaskVoMap" type="com.topideal.mybatis.entity.TimerTaskVo" >
+        <result property="taskId" column="id" />
+        <result property="taskName" column="task_name" />
+        <result property="serverIp" column="server_ip" />
+        <result property="producerGroup" column="producer_group" />
+        <result property="serverPost" column="server_post" />
+        <result property="topic" column="topic" />
+        <result property="tags" column="tags" />
+        <result property="periodType" column="period_type" />
+        <result property="nextTriggerDate" column="next_trigger_date" />
+        <result property="intervalTime" column="interval_time" />
+        <result property="platformId" column="platform_id" />
+        <result property="platformName" column="platform_name" />
+    </resultMap>
+
+    <select id="searchTaskInfo" resultMap="TimerTaskVoMap" parameterType="com.topideal.mybatis.entity.TimerTaskModel" >
+            SELECT t1.id ,t1.task_name,t1.topic,t1.tags,t1.period_type, t1.next_trigger_date,
+            t1.interval_time,t1.platform_id,t1.platform_name,t2.producer_group,t2.server_post,t2.server_ip
+            FROM t_timer_task t1 LEFT JOIN t_mq_info t2 ON t1.mq_id=t2.id
+            WHERE t1.next_trigger_date &lt;= now()
+    </select>
+
+
+
+
+</mapper>
